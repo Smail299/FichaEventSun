@@ -1,13 +1,10 @@
 name: FichaEventSun
-version: '1.0'
+version: 1.0
 main: ua.fichadev.fichaeventsun.FichaEventSun
 api-version: '1.16'
-description: Ядро Солнца - ивент на сервере
 depend:
   - Vault
 softdepend:
   - LootManager
 commands:
   fichasun:
-    description: Управление лутом Ядра Солнца
-    permission: fichaeventsun.admin
