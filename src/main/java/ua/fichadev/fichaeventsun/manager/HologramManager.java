@@ -2,6 +2,7 @@ package ua.fichadev.fichaeventsun.manager;
 
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import ua.fichadev.fichaeventsun.FichaEventSun;
 import ua.fichadev.fichaeventsun.model.Phase;
@@ -23,6 +24,8 @@ public class HologramManager {
 
     public void spawn() {
         removeAll();
+        cleanupOrphaned();
+
         Location base = plugin.getCfg().getCoreLocation();
         if (base == null || base.getWorld() == null) return;
 
@@ -32,6 +35,19 @@ public class HologramManager {
         lines.add(createLine(loc.clone().add(0, 0.75, 0), formatTitle()));
         lines.add(createLine(loc.clone().add(0, 0.25, 0), formatPhaseLine()));
         lines.add(createLine(loc, formatTimerLine()));
+    }
+
+    public void cleanupOrphaned() {
+        Location base = plugin.getCfg().getCoreLocation();
+        if (base == null || base.getWorld() == null) return;
+
+        for (Entity entity : base.getWorld().getNearbyEntities(base, 3, 5, 3)) {
+            if (entity.getType() != EntityType.ARMOR_STAND) continue;
+            ArmorStand stand = (ArmorStand) entity;
+            if (!stand.isVisible() && stand.isMarker() && stand.isCustomNameVisible()) {
+                stand.remove();
+            }
+        }
     }
 
     private ArmorStand createLine(Location location, String text) {

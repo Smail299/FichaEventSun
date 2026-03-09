@@ -32,5 +32,6 @@ public class SunCore {
     public void shutdown() {
         plugin.getPhaseManager().stop();
         plugin.getHologramManager().removeAll();
+        plugin.getHologramManager().cleanupOrphaned();
     }
 }

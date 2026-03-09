@@ -74,9 +74,6 @@ public final class FichaEventSun extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (hologramManager != null) {
-            hologramManager.removeAll();
-        }
         if (sunCore != null) {
             sunCore.shutdown();
         }
